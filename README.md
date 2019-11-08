@@ -17,7 +17,7 @@ Generate short audio by:
 ```sh
 generate_sample.py
 ```
-It will generate short audio from long audio by VAD((Voice Activity Detection),then you need  to label them and put them in three folders.
+It will generate short audio from long audio by VAD(Voice Activity Detection),then you need  to label them and put them in three folders.
 
 Train data files:
 
@@ -26,9 +26,9 @@ Train data files:
     │   ├── long_audio          #wav files before VAD
     │   ├── model                  #save model
     │   └── short_audio         #wav files after VAD
-    │───├── female          # wav files with label female
-    │───├── male          #  wav files with label male
-    │───└── noise          # wav files with label noise
+    │──────├── female          # wav files with label female
+    │──────├── male          #  wav files with label male
+    │──────└── noise          # wav files with label noise
     └── ...
 
 
