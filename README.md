@@ -20,7 +20,7 @@ generate_sample.py
 It will generate short audio from long audio by VAD((Voice Activity Detection),then you need  to label them and put them in three folders.
 
 Train data files:
-    .
+    
     ├── ...
     ├── data
     │   ├── long_audio          #wav files before VAD
