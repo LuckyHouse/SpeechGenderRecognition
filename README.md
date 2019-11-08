@@ -46,7 +46,7 @@ Train data files:
 
 ## Predict
 
--  set train=false and model_path in:
+-  Set train=false and model_path in:
 ```sh
 	main.py
 ```
