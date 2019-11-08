@@ -20,7 +20,7 @@ generate_sample.py
 It will generate short audio from long audio by VAD((Voice Activity Detection),then you need  to label them and put them in three folders.
 
 Train data files:
-    
+
     ├── ...
     ├── data
     │   ├── long_audio          #wav files before VAD
@@ -51,16 +51,8 @@ Train data files:
 	main.py
 ```
 
+![](/img/info.png)
 
-```mermaid
-graph LR
-A[call recording] -- VAD --> B(short recording1)
-A -- VAD --> C(short recording2)
-A -- VAD --> D(.....)
-B --predict--> E(gender info)
-C --predict--> E
-D --predict--> E
-```
 
 ##  Accuracy
 
