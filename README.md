@@ -34,7 +34,7 @@ Train data files:
 
 ## Train
 
--  set train=true in:
+-  Set train=true in:
 ```sh
 	main.py
 ```
