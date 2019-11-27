@@ -13,7 +13,7 @@ def cnn_lstm(shape,numclasses):
     lstmmodel_1 = keras.models.Sequential()
     #lstmmodel_1.add(Masking(mask_value=0, input_shape=(300,34)))
 
-    lstmmodel_1.add(Conv1D(32, 3, input_shape=shape))
+    lstmmodel_1.add(Conv1D(32, 3, input_shape=shape))#卷积层降噪
     lstmmodel_1.add(Dropout(0.2))
     lstmmodel_1.add(MaxPooling1D())
 

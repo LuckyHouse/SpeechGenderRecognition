@@ -12,6 +12,16 @@ import os
 import matplotlib.pyplot as plt
 import glob
 
+
+maleFemaleFreq = [120, 232]
+TS=3 #time for simple method
+
+humanVoiceMinMAx = [80,255]
+maleMinMax=[60,160]
+femaleMinMax=[180,225]
+HPSLoop=5
+
+
 def read_wave(path):
     """Reads a .wav file.
 
@@ -246,12 +256,10 @@ def splitsToOneSecondData(rate,data):
     return parts
 
 
-import time
-
-"""
-每段的统计类型
-"""
-def AVG_HPS(sample_rate,datas, maleMinMax=[60, 110], femaleMinMax=[180, 270]):
+def avg_hps(sample_rate, datas, maleMinMax=[60, 110], femaleMinMax=[180, 270]):
+    """
+    每段的统计类型
+    """
     total_statistics = 0
     for pcm_data in datas:
         totalTime = len(pcm_data) / sample_rate
@@ -264,16 +272,23 @@ def AVG_HPS(sample_rate,datas, maleMinMax=[60, 110], femaleMinMax=[180, 270]):
 
         if totalTime < 1:
             continue
-        _resoult = HPS_orgin(sample_rate, pcm_data,totalTime)
+        _resoult = hps_orgin(sample_rate, pcm_data, totalTime)
         total_statistics += _resoult;
     print("total_statistics",total_statistics)
     return total_statistics
 
 
-# -1 女
-#  1 男
-#  0 无
-def HPS(sample_rate, pcm_data, hpsLoop=5, maleMinMax=[60, 160], femaleMinMax=[180, 270]):
+
+def hps(sample_rate, pcm_data, hpsLoop=5, maleMinMax=[60, 160], femaleMinMax=[180, 270]):
+    """
+
+    :param sample_rate:
+    :param pcm_data:
+    :param hpsLoop:
+    :param maleMinMax:
+    :param femaleMinMax:
+    :return:     -1 女  1 男  0 无
+    """
     resultParts = []
 
     totalTime = len(pcm_data) / sample_rate
@@ -316,7 +331,7 @@ def HPS(sample_rate, pcm_data, hpsLoop=5, maleMinMax=[60, 160], femaleMinMax=[18
         return 1, _sumMale, _sumFemale
     return -1, _sumMale, _sumFemale
 
-def downloadFromsql(fileName,_recongnize,cursor):
+def download_from_sql(fileName, _recongnize, cursor):
     _path, _name = os.path.split(fileName)
     newPath = "/static/dataForGender\\\\"  +_name
     sql = "update local_gender_log_copy set gender_recongnize ="+str(_recongnize)+"  WHERE outpath = \""+newPath+"\""
@@ -331,19 +346,14 @@ def get_all_flg_data(cursor):
     return results
 
 
-maleFemaleFreq = [120, 232]
-TS=3 #time for simple method
-
-humanVoiceMinMAx = [80,255]
-maleMinMax=[60,160]
-femaleMinMax=[180,225]
-HPSLoop=5
-
-"""
-原版hps 仅仅更改了返回值
-"""
-def HPS_orgin(rate, dataVoice,T=3):
-    #T = 3  # time for HPS method
+def hps_orgin(rate, dataVoice, T=3):
+    """
+    原版hps 仅仅更改了返回值
+    :param rate:
+    :param dataVoice:
+    :param T:
+    :return:
+    """
 
     if( T >len(dataVoice)/rate): T = len(dataVoice)/rate
     dataVoice = dataVoice[max(0, int(len(dataVoice) / 2) - int(T / 2 * rate)):min(len(dataVoice) - 1, int(len(dataVoice) / 2) + int(T / 2 * rate))]
@@ -383,7 +393,7 @@ def listVariation(list1, list2): return sum([ abs(int(x)-int(y)) for x,y in zip(
 def vad_avg_hps(file,vad = 2):
     array, rate = read_wave(file)
     vadDatas = main_vad(array,rate,vad)
-    return AVG_HPS(rate,vadDatas)
+    return avg_hps(rate, vadDatas)
 
 def vad(file,vad = 2,dir_name = ''):
     vad_one_dir(file,vad,dir_name)

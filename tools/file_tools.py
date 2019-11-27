@@ -1,7 +1,7 @@
 import os,shutil
 import csv
 
-def mymovefile(srcfile,dstfile):
+def move_file(srcfile, dstfile):
     if not os.path.isfile(srcfile):
         print("%s not exist!"%(srcfile))
     else:
@@ -11,7 +11,7 @@ def mymovefile(srcfile,dstfile):
         shutil.move(srcfile,dstfile)          #移动文件
         print("move %s -> %s"%( srcfile,dstfile))
 
-def mycopyfile(srcfile,dstfile):
+def copy_file(srcfile, dstfile):
     if not os.path.isfile(srcfile):
         print("%s not exist!"%(srcfile))
     else:
